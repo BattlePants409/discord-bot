@@ -225,7 +225,12 @@ card_points = {
 
 
 intents = discord.Intents.default()
-intents.message_content = True
+intents.messages = True  # Required for handling messages
+intents.guilds = True
+intents.members = True  # If you want to track member updates
+intents.reactions = True  # If you want to handle reactions
+
+
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
