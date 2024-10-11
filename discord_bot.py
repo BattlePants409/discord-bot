@@ -229,7 +229,7 @@ intents = discord.Intents.default()
 intents.messages = True  # Allow receiving messages
 intents.guilds = True  # Allow interaction with guilds
 
-# Check if the 'message_content' attribute exists and set it if available
+# Safely set message_content intent if available
 if hasattr(intents, 'message_content'):
     intents.message_content = True
 
@@ -239,6 +239,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
+
 
 def fetch_decklist(archidekt_url):
     try:
