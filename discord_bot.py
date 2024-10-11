@@ -226,7 +226,13 @@ card_points = {
 
 # Discord intents configuration
 intents = discord.Intents.default()
-intents.message_content = True
+intents.messages = True  # Ensures the bot can read messages
+intents.guilds = True  # Ensures the bot can receive guild events
+
+# Check if the version supports message_content attribute
+if hasattr(intents, 'message_content'):
+    intents.message_content = True
+
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
