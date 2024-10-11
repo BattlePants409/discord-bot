@@ -224,24 +224,23 @@ card_points = {
 
 
 
-# Discord intents configuration
+# Define your intents
 intents = discord.Intents.default()
-intents.messages = True  # Ensures the bot can read messages
-intents.guilds = True  # Ensures the bot can receive guild events
+intents.messages = True  # Allow receiving messages
+intents.guilds = True  # Allow interaction with guilds
 
-# Check if the version supports message_content attribute
+# Check if the 'message_content' attribute exists and set it if available
 if hasattr(intents, 'message_content'):
     intents.message_content = True
 
-
+# Create the bot with the defined intents
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f'Logged in as {bot.user}')
+    print(f'We have logged in as {bot.user}')
 
 def fetch_decklist(archidekt_url):
-    # Extract the deck ID from the Archidekt URL
     try:
         deck_id = archidekt_url.split('/')[-1]
         api_url = f"https://archidekt.com/api/decks/{deck_id}/"
@@ -251,7 +250,6 @@ def fetch_decklist(archidekt_url):
             return None
 
         deck_data = response.json()
-        # Extract the card names from the deck data
         decklist = [card['card']['oracleCard']['name'] for card in deck_data['cards']]
         return decklist
     except Exception as e:
@@ -260,7 +258,6 @@ def fetch_decklist(archidekt_url):
 
 @bot.command(name='checkdeck')
 async def check_deck(ctx, archidekt_url: str):
-    # Fetch the decklist using the Archidekt URL
     decklist = fetch_decklist(archidekt_url)
     if not decklist:
         await ctx.send("Error fetching the decklist. Please check the URL and try again.")
@@ -276,16 +273,13 @@ async def check_deck(ctx, archidekt_url: str):
 
     response = f"**Total Points**: {total_points}\n"
     
-    # If the deck's points exceed 100, recommend cuts
     if total_points > 100:
         response += f"**Your deck exceeds 100 points by {total_points - 100} points.**\n"
-        # Sort the deck based on points in descending order
         deck_sorted = sorted(results, key=lambda x: x[1], reverse=True)
         points_to_remove = total_points - 100
         cards_to_cut = []
         current_points = total_points
 
-        # Suggest cuts to reduce points to 100 or below
         for card, points in deck_sorted:
             if current_points <= 100:
                 break
@@ -300,18 +294,14 @@ async def check_deck(ctx, archidekt_url: str):
     else:
         response += "Your deck is within the 100-point limit.\n"
 
-    # Discord's character limit is 2000 characters per message
     if len(response) > 2000:
         for i in range(0, len(response), 2000):
             await ctx.send(response[i:i+2000])
     else:
         await ctx.send(response)
 
-# Load environment variables directly
-# load_dotenv()  # Remove or comment this if not using a .env file
-
-# Fetch the token from the environment variable
+# Load the token from the environment variable
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
-# Start the bot
+# Run the bot
 bot.run(TOKEN)
