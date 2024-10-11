@@ -301,6 +301,11 @@ async def check_deck(ctx, archidekt_url: str):
     else:
         await ctx.send(response)
 
-# Load environment variables from the .env file
-load_dotenv()
-bot.run(os.getenv('DISCORD_BOT_TOKEN'))
+# Load environment variables directly
+# load_dotenv()  # Remove or comment this if not using a .env file
+
+# Fetch the token from the environment variable
+TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+
+# Start the bot
+bot.run(TOKEN)
