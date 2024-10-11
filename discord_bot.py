@@ -224,19 +224,15 @@ card_points = {
 
 
 
+# Discord intents configuration
 intents = discord.Intents.default()
-intents.messages = True  # Required for handling messages
-intents.guilds = True
-intents.members = True  # If you want to track member updates
-intents.reactions = True  # If you want to handle reactions
-
-
+intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f'We have logged in as {bot.user}')
+    print(f'Logged in as {bot.user}')
 
 def fetch_decklist(archidekt_url):
     # Extract the deck ID from the Archidekt URL
