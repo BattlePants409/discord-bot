@@ -280,20 +280,36 @@ def fetch_decklist(archidekt_url):
         response = requests.get(api_url)
 
         if response.status_code != 200:
-            return None
+            return None, None
 
         deck_data = response.json()
         decklist = [card['card']['oracleCard']['name'] for card in deck_data['cards']]
-        return decklist
+
+        # Find the commanders
+        commanders = []
+        for card in deck_data['cards']:
+            if 'Commander' in card.get('categories', []):
+                commanders.append(card['card']['oracleCard']['name'])
+
+        return decklist, commanders
     except Exception as e:
         print(f"Error fetching decklist: {e}")
-        return None
+        return None, None
+
+
 
 @bot.command(name='checkdeck')
 async def check_deck(ctx, archidekt_url: str):
-    decklist = fetch_decklist(archidekt_url)
+    decklist, commanders = fetch_decklist(archidekt_url)
     if not decklist:
         await ctx.send("Error fetching the decklist. Please check the URL and try again.")
+        return
+
+    # Check if any commander is restricted
+    restricted_commanders = [commander for commander in commanders if commander in card_points]
+
+    if restricted_commanders:
+        await ctx.send(f"Your deck is not legal because the commander(s), **{', '.join(restricted_commanders)}**, is/are restricted.")
         return
 
     total_points = 0
@@ -332,6 +348,8 @@ async def check_deck(ctx, archidekt_url: str):
             await ctx.send(response[i:i+2000])
     else:
         await ctx.send(response)
+
+
 
 # Load the token from the environment variable
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
