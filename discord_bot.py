@@ -327,37 +327,43 @@ async def check_deck(ctx, archidekt_url: str):
         points_to_remove = total_points - 100
         response += f"**Your deck exceeds 100 points by {points_to_remove} points.**\n"
 
-        # Find the best combination of cards to cut that gets closest to reducing the total points to 100
-        deck_sorted = sorted(results, key=lambda x: x[1], reverse=True)
-        best_combination = None
-        best_remaining_points = total_points
+        # Try different combinations of cards to cut
+        try:
+            deck_sorted = sorted(results, key=lambda x: x[1], reverse=True)
+            best_combination = None
+            best_remaining_points = total_points
 
-        # Try different combinations of cards to cut, starting from combinations of 1 card, 2 cards, etc.
-        for r in range(1, len(deck_sorted) + 1):
-            for combination in itertools.combinations(deck_sorted, r):
-                combination_points = sum(card[1] for card in combination)
-                new_total_points = total_points - combination_points
+            # Try different combinations of cards to cut, starting from combinations of 1 card, 2 cards, etc.
+            for r in range(1, len(deck_sorted) + 1):
+                for combination in itertools.combinations(deck_sorted, r):
+                    combination_points = sum(card[1] for card in combination)
+                    new_total_points = total_points - combination_points
 
-                if new_total_points <= 100:
-                    remaining_points = 100 - new_total_points
+                    if new_total_points <= 100:
+                        remaining_points = 100 - new_total_points
 
-                    if remaining_points < best_remaining_points:
-                        best_combination = combination
-                        best_remaining_points = remaining_points
+                        if remaining_points < best_remaining_points:
+                            best_combination = combination
+                            best_remaining_points = remaining_points
 
-                if best_remaining_points == 0:  # Perfect cut found
+                    if best_remaining_points == 0:  # Perfect cut found
+                        break
+                if best_remaining_points == 0:
                     break
-            if best_remaining_points == 0:
-                break
 
-        # Display recommended cuts
-        response += "\n**Recommended Cuts:**\n"
-        if best_combination:
-            for card, points in best_combination:
-                response += f"- {card}: {points} points\n"
-            response += f"\n**New Total (after recommended cuts)**: {total_points - sum(card[1] for card in best_combination)} points"
-        else:
-            response += "No valid cuts found to bring the total to or under 100 points."
+            # Display recommended cuts
+            response += "\n**Recommended Cuts:**\n"
+            if best_combination:
+                for card, points in best_combination:
+                    response += f"- {card}: {points} points\n"
+                response += f"\n**New Total (after recommended cuts)**: {total_points - sum(card[1] for card in best_combination)} points"
+            else:
+                response += "No valid cuts found to bring the total to or under 100 points."
+
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            await ctx.send("An error occurred while processing your deck. Please try again.")
+            return
 
     else:
         response += "Your deck is within the 100-point limit.\n"
@@ -367,6 +373,7 @@ async def check_deck(ctx, archidekt_url: str):
             await ctx.send(response[i:i+2000])
     else:
         await ctx.send(response)
+
 
 
 
