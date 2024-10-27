@@ -17,6 +17,7 @@ card_points = {
     "Ancient Copper Dragon": 6,
     "Ancient Greenwarden": 5,
     "Ancient Tomb": 11,
+    "Anger": 5,
     "Archangel of Thune": 4,
     "Ashnod's Altar": 10,
     "Assassin's Trophy": 5,
@@ -33,6 +34,7 @@ card_points = {
     "Bonny Paul, Clearcutter": 5,
     "Branching Evolution": 7,
     "Brass's Bounty": 6,
+    "Brawn": 3,
     "Burgeoning": 17,
     "Buried Alive": 10,
     "Cabal Coffers": 10,
@@ -41,15 +43,18 @@ card_points = {
     "Captain Sisay": 5,
     "Case of the Locked Hothouse": 9,
     "Cathars' Crusade": 15,
+    "Chance Encounter": 6,
     "Chrome Mox": 9,
     "Chulane, Teller of Tales": 9,
     "Circle of Dreams Druid": 4,
     "City on Fire": 6,
+    "Cloudshredder Sliver": 4,
     "Coat of Arms": 10,
     "Colossus Hammer": 4,
     "Commandeer": 7,
     "Consecrated Sphinx": 6,
     "Craterhoof Behemoth": 16,
+    "Crystalline Sliver": 4,
     "Cyberdrive Awakener": 12,
     "Cyclonic Rift": 20,
     "Cultivator Colossus": 16,
@@ -62,12 +67,12 @@ card_points = {
     "Delighted Halfling": 3,
     "Demonic Consultation": 10,
     "Demonic Tutor": 8,
-    "Descendants' Path": 7,
+    "Descendants' Path": 6,
     "Devoted Druid": 7,
     "Diabolic Intent": 6,
     "Dictate of Erebos": 7,
     "Displacer Kitten": 8,
-    "Doubling Season": 8,
+    "Doubling season": 8,
     "Druid Class": 4,
     "Dryad of the Ilysian Grove": 6,
     "Eerie Ultimatum": 5,
@@ -87,6 +92,7 @@ card_points = {
     "Exquisite Blood": 11,
     "Eye of Ugin": 7,
     "Fabricate": 4,
+    "Fauna Shaman": 6,
     "Field of the Dead": 9,
     "Fierce Guardianship": 17,
     "Flawless Maneuver": 15,
@@ -96,15 +102,19 @@ card_points = {
     "Frantic Search": 4,
     "Freed from the Real": 10,
     "Funeral Room // Awakening Hall": 5,
+    "Gamble": 4,
     "Glen Elendra Archmage": 8,
     "Goldspan Dragon": 8,
+    "Golgari Grave-Troll": 7,
     "Grand Arbiter Agustin IV": 8,
     "Grave Pact": 8,
+    "Gray Merchant of Asphodel": 6,
     "Growing Rites of Itlimoc // Itlimoc, Cradle of the Sun": 5,
-    "Guardian Project": 6,
+    "Guardian Project": 3,
     "Hallowed Haunting": 4,
     "Hardened Scales": 5,
     "Heroic Intervention": 6,
+    "Hibernation Sliver": 5,
     "Hullbreaker Horror": 5,
     "Hunting Velociraptor": 6,
     "Idyllic Tutor": 6,
@@ -112,6 +122,7 @@ card_points = {
     "Inkshield": 8,
     "Insurrection": 10,
     "Intruder Alarm": 13,
+    "Invasion of Ikoria": 4,
     "Isochron Scepter": 8,
     "Jadzi, Oracle of Arcavios // Journey to the Oracle": 8,
     "Jaheira, Friend of the Forest": 6,
@@ -120,13 +131,16 @@ card_points = {
     "Kappa Cannoneer": 10,
     "Karmic Guide": 6,
     "Karn's Temporal Sundering": 10,
+    "Kiki-Jiki, Mirror Breaker": 5,
     "Kinnan, Bonder Prodigy": 8,
+    "Kira, Great Glass-Spinner": 4,
     "Klauth, Unrivaled Ancient": 7,
     "Kodama of the East Tree": 14,
     "Koma, the Cosmos Serpent": 5,
     "Kozilek, the Broken Reality": 7,
     "Kozilek, the Great Distortion": 8,
     "Krark-Clan Ironworks": 9,
+    "Krark's Thumb": 4,
     "Kuldotha Forgemaster": 4,
     "Last March of the Ents": 7,
     "Lim-Dul's Vault": 4,
@@ -134,9 +148,11 @@ card_points = {
     "Lotus Petal": 8,
     "Lurking Predators": 9,
     "Mana Drain": 13,
+    "Mana Echoes": 5,
     "Mana Vault": 11,
     "Marionette Master": 7,
     "Meathook Massacre II": 4,
+    "Mesmeric Orb": 5,
     "Mirari's Wake": 5,
     "Misdirection": 4,
     "Mishra's Workshop": 8,
@@ -169,6 +185,7 @@ card_points = {
     "Profane Tutor": 4,
     "Purphoros, God of the Forge": 10,
     "Ragavan, Nimble Pilferer": 4,
+    "Reshape": 4,
     "Revel in Riches": 8,
     "Rhystic Study": 11,
     "Roaming Throne": 7,
@@ -196,6 +213,8 @@ card_points = {
     "Simulacrum Synthesizer": 9,
     "Sisay, Weatherlight Captain": 5,
     "Skullclamp": 8,
+    "Sliver Hivelord": 4,
+    "Sliver Queen": 4,
     "Smothering Tithe": 20,
     "Sneak Attack": 13,
     "Solemnity": 7,
@@ -205,6 +224,7 @@ card_points = {
     "Sorin Markov": 7,
     "Sphinx of the Second Sun": 4,
     "Steelshaper's Gift": 5,
+    "Sterling Grove": 8,
     "Stoneforge Mystic": 8,
     "Stonehewer Giant": 7,
     "Storm-Kiln Artist": 6,
@@ -216,16 +236,19 @@ card_points = {
     "Sword of Light and Shadow": 5,
     "Sword of Truth and Justice": 7,
     "Sword of Wealth and Power": 7,
-    "Sterling Grove": 5,
     "Teferi's Protection": 10,
     "Temple of the False God": 6,
+    "Temur Sabertooth": 3,
     "Terror of the Peaks": 6,
+    "The Cruelty of Gix": 5,
+    "The First Sliver": 4,
     "The Great Henge": 11,
     "The Meathook Massacre": 6,
     "The One Ring": 13,
     "Thousand-Year Storm": 5,
     "Three Tree City": 11,
     "Time Sieve": 16,
+    "Titanic Ultimatum": 7,
     "Toski, Bearer of Secrets": 5,
     "Triumph of the Hordes": 16,
     "Ugin, the Spirit Dragon": 7,
@@ -234,6 +257,7 @@ card_points = {
     "Ulamog, the Infinite Gyre": 7,
     "Unbound Flourishing": 8,
     "Underworld Breach": 8,
+    "Unmarked Grave": 3,
     "Unwinding Clock": 5,
     "Uro, Titan of Nature's Wrath": 6,
     "Urza, Lord High Artificer": 8,
@@ -247,12 +271,14 @@ card_points = {
     "Warren Soultrader": 11,
     "Wayward Swordtooth": 6,
     "Whir of Invention": 5,
+    "Whitemane Lion": 3,
     "Wilderness Reclamation": 4,
     "Worldly Tutor": 5,
     "Yawgmoth, Thran Physician": 6,
     "Yuriko, the Tiger's Shadow": 6,
     "Zopandrel, Hunger Dominus": 4
 }
+
 
 
 
@@ -284,18 +310,18 @@ def fetch_decklist(archidekt_url):
             return None, None
 
         deck_data = response.json()
-        decklist = [card['card']['oracleCard']['name'] for card in deck_data['cards']]
+
+        # Extract only cards from the main deck, excluding the maybeboard
+        main_deck = [card['card']['oracleCard']['name'] for card in deck_data['cards'] if card.get('category') == 'mainboard']
 
         # Find the commanders
-        commanders = []
-        for card in deck_data['cards']:
-            if 'Commander' in card.get('categories', []):
-                commanders.append(card['card']['oracleCard']['name'])
+        commanders = [card['card']['oracleCard']['name'] for card in deck_data['cards'] if 'Commander' in card.get('categories', [])]
 
-        return decklist, commanders
+        return main_deck, commanders
     except Exception as e:
         print(f"Error fetching decklist: {e}")
         return None, None
+
 
 
 
@@ -306,15 +332,25 @@ async def check_deck(ctx, archidekt_url: str):
         await ctx.send("Error fetching the decklist. Please check the URL and try again.")
         return
 
-    # Check if any commander is restricted
-    restricted_commanders = [commander for commander in commanders if commander in card_points]
-
-    if restricted_commanders:
-        await ctx.send(f"Your deck is not legal because the commander(s), **{', '.join(restricted_commanders)}**, is/are restricted.")
-        return
-
     total_points = 0
     results = []
+    commander_points_info = []
+
+    # Adjust the commander cost if they are on the list
+    for commander in commanders:
+        if commander in card_points:
+            adjusted_commander_points = card_points[commander] * 3
+            total_points += adjusted_commander_points
+            commander_points_info.append(f"{commander}: {adjusted_commander_points} points (3x)")
+        else:
+            commander_points_info.append(f"{commander}: 0 points (not restricted)")
+
+    # Notify the user about commander costs
+    if commander_points_info:
+        response = "**Commander Points:**\n"
+        response += "\n".join(commander_points_info) + "\n\n"
+    else:
+        response = ""
 
     # Filter decklist to include only cards with points > 0
     filtered_decklist = [(card_name, card_points.get(card_name, 0)) for card_name in decklist if card_points.get(card_name, 0) > 0]
@@ -323,7 +359,7 @@ async def check_deck(ctx, archidekt_url: str):
         total_points += points
         results.append((card_name, points))
 
-    response = f"**Total Points**: {total_points}\n"
+    response += f"**Total Points**: {total_points}\n"
 
     if total_points > 100:
         points_to_remove = total_points - 100
@@ -371,6 +407,7 @@ async def check_deck(ctx, archidekt_url: str):
             await ctx.send(response[i:i+2000])
     else:
         await ctx.send(response)
+
 
 
 
