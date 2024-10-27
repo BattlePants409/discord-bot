@@ -2,6 +2,7 @@ import discord
 import os
 import requests
 import itertools
+import json
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -300,6 +301,10 @@ async def on_ready():
     print(f'We have logged in as {bot.user}')
 
 
+
+
+
+
 def fetch_decklist(archidekt_url):
     try:
         deck_id = archidekt_url.split('/')[-1]
@@ -307,20 +312,41 @@ def fetch_decklist(archidekt_url):
         response = requests.get(api_url)
 
         if response.status_code != 200:
+            print(f"Error: Received status code {response.status_code}")
             return None, None
 
         deck_data = response.json()
 
-        # Extract only cards from the main deck, excluding the maybeboard
-        main_deck = [card['card']['oracleCard']['name'] for card in deck_data['cards'] if card.get('category') == 'mainboard']
+        main_deck = []
+        commanders = []
 
-        # Find the commanders
-        commanders = [card['card']['oracleCard']['name'] for card in deck_data['cards'] if 'Commander' in card.get('categories', [])]
+        print("Card data with categories:")
+        for card in deck_data['cards']:
+            card_name = card['card']['oracleCard']['name']
+            categories = card.get('categories', [])
+            
+            # Output card info to debug categories
+            print(f"Card: {card_name}, Categories: {categories}")
+
+            # Check for main deck cards (exclude maybeboard)
+            if 'Maybeboard' not in categories:
+                main_deck.append(card_name)
+            
+            # Check for commanders
+            if 'Commander' in categories:
+                commanders.append(card_name)
+
+        print(f"Extracted Main Deck: {main_deck}")
+        print(f"Extracted Commanders: {commanders}")
 
         return main_deck, commanders
     except Exception as e:
         print(f"Error fetching decklist: {e}")
         return None, None
+
+
+
+
 
 
 
@@ -332,25 +358,15 @@ async def check_deck(ctx, archidekt_url: str):
         await ctx.send("Error fetching the decklist. Please check the URL and try again.")
         return
 
+    # Check if any commander is restricted and apply the 3x multiplier
     total_points = 0
     results = []
-    commander_points_info = []
 
-    # Adjust the commander cost if they are on the list
     for commander in commanders:
         if commander in card_points:
-            adjusted_commander_points = card_points[commander] * 3
-            total_points += adjusted_commander_points
-            commander_points_info.append(f"{commander}: {adjusted_commander_points} points (3x)")
-        else:
-            commander_points_info.append(f"{commander}: 0 points (not restricted)")
-
-    # Notify the user about commander costs
-    if commander_points_info:
-        response = "**Commander Points:**\n"
-        response += "\n".join(commander_points_info) + "\n\n"
-    else:
-        response = ""
+            commander_points = card_points[commander] * 3
+            total_points += commander_points
+            await ctx.send(f"Commander **{commander}** is restricted. It costs **{commander_points} points**.")
 
     # Filter decklist to include only cards with points > 0
     filtered_decklist = [(card_name, card_points.get(card_name, 0)) for card_name in decklist if card_points.get(card_name, 0) > 0]
@@ -359,45 +375,45 @@ async def check_deck(ctx, archidekt_url: str):
         total_points += points
         results.append((card_name, points))
 
-    response += f"**Total Points**: {total_points}\n"
+    response = f"**Total Points**: {total_points}\n"
 
     if total_points > 100:
         points_to_remove = total_points - 100
         response += f"**Your deck exceeds 100 points by {points_to_remove} points.**\n"
 
         # Find the best combination of cards to cut that gets closest to reducing the total points to 100
-        deck_sorted = sorted(results, key=lambda x: x[1], reverse=True)
-        best_combination = None
-        best_remaining_points = total_points
+        try:
+            deck_sorted = sorted(results, key=lambda x: x[1], reverse=True)
+            best_combination = None
+            best_remaining_points = total_points
 
-        # Try different combinations of cards to cut, starting from combinations of 1 card, 2 cards, etc.
-        for r in range(1, len(deck_sorted) + 1):
-            for combination in itertools.combinations(deck_sorted, r):
-                combination_points = sum(card[1] for card in combination)
-                new_total_points = total_points - combination_points
+            for r in range(1, len(deck_sorted) + 1):
+                for combination in itertools.combinations(deck_sorted, r):
+                    combination_points = sum(card[1] for card in combination)
+                    new_total_points = total_points - combination_points
 
-                # Stop if new total is less than or equal to 100
-                if new_total_points <= 100:
-                    remaining_points = 100 - new_total_points
+                    if new_total_points <= 100:
+                        remaining_points = 100 - new_total_points
 
-                    if remaining_points < best_remaining_points:
-                        best_combination = combination
-                        best_remaining_points = remaining_points
+                        if remaining_points < best_remaining_points:
+                            best_combination = combination
+                            best_remaining_points = remaining_points
 
-                # Stop if we found the perfect combination
+                    if best_remaining_points == 0:
+                        break
                 if best_remaining_points == 0:
                     break
-            if best_remaining_points == 0:
-                break
 
-        # Display recommended cuts
-        response += "\n**Recommended Cuts:**\n"
-        if best_combination:
-            for card, points in best_combination:
-                response += f"- {card}: {points} points\n"
-            response += f"\n**New Total (after recommended cuts)**: {total_points - sum(card[1] for card in best_combination)} points"
-        else:
-            response += "No valid cuts found to bring the total to or under 100 points."
+            # Display recommended cuts
+            response += "\n**Recommended Cuts:**\n"
+            if best_combination:
+                for card, points in best_combination:
+                    response += f"- {card}: {points} points\n"
+                response += f"\n**New Total (after recommended cuts)**: {total_points - sum(card[1] for card in best_combination)} points"
+            else:
+                response += "No valid cuts found to bring the total to or under 100 points."
+        except Exception as e:
+            response += f"\nError during combination calculation: {e}"
 
     else:
         response += "Your deck is within the 100-point limit.\n"
@@ -407,6 +423,8 @@ async def check_deck(ctx, archidekt_url: str):
             await ctx.send(response[i:i+2000])
     else:
         await ctx.send(response)
+
+
 
 
 
